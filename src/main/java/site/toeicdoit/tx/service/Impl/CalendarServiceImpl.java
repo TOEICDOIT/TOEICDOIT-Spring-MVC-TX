@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import site.toeicdoit.tx.domain.dto.CalendarDto;
 import site.toeicdoit.tx.domain.model.CalendarModel;
+import site.toeicdoit.tx.domain.model.UserModel;
 import site.toeicdoit.tx.repository.CalendarRepository;
 import site.toeicdoit.tx.domain.model.MessengerVo;
 import site.toeicdoit.tx.service.CalendarService;

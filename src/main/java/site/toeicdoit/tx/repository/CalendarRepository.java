@@ -2,6 +2,7 @@ package site.toeicdoit.tx.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import site.toeicdoit.tx.domain.model.UserModel;
 import site.toeicdoit.tx.repository.dsl.CalendarDao;
 import site.toeicdoit.tx.domain.model.CalendarModel;
 

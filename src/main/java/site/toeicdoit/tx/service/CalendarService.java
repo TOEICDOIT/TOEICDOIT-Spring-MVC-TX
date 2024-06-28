@@ -5,6 +5,7 @@ package site.toeicdoit.tx.service;
 import site.toeicdoit.tx.domain.dto.CalendarDto;
 import site.toeicdoit.tx.domain.model.CalendarModel;
 import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.model.UserModel;
 
 import java.util.List;
 

@@ -4,6 +4,7 @@ package site.toeicdoit.tx.service;
 import site.toeicdoit.tx.domain.model.MessengerVo;
 import site.toeicdoit.tx.domain.dto.SubscribeDto;
 import site.toeicdoit.tx.domain.model.SubscribeModel;
+import site.toeicdoit.tx.domain.model.UserModel;
 
 public interface SubscribeService {
 

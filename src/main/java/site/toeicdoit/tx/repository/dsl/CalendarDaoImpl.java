@@ -4,7 +4,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import site.toeicdoit.tx.domain.model.CalendarModel;
-import site.toeicdoit.tx.calendar.model.QCalendarModel;
+import site.toeicdoit.tx.domain.model.QCalendarModel;
 
 
 import java.util.List;

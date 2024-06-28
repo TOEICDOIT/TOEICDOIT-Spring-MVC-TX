@@ -5,9 +5,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import site.toeicdoit.tx.domain.dto.PaymentDto;
-import site.toeicdoit.tx.payment.model.QPaymentDto;
-import site.toeicdoit.tx.payment.model.QPaymentModel;
-import site.toeicdoit.tx.product.model.QProductModel;
+import site.toeicdoit.tx.domain.dto.QPaymentDto;
+import site.toeicdoit.tx.domain.model.QPaymentModel;
+import site.toeicdoit.tx.domain.model.QProductModel;
 
 
 import java.util.List;

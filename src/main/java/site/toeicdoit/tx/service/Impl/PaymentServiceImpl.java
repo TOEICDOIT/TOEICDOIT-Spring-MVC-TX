@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.toeicdoit.tx.domain.model.MessengerVo;
 import site.toeicdoit.tx.domain.dto.PaymentDto;
+import site.toeicdoit.tx.domain.model.UserModel;
 import site.toeicdoit.tx.repository.PaymentRepository;
+import site.toeicdoit.tx.repository.UserRepository;
 import site.toeicdoit.tx.service.PaymentService;
 import site.toeicdoit.tx.repository.SubscribeRepository;
 
