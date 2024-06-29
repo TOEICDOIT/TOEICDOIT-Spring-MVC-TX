@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.vo.Messenger;
 import site.toeicdoit.tx.domain.dto.PaymentDto;
 import site.toeicdoit.tx.service.Impl.PaymentServiceImpl;
 
@@ -42,7 +42,7 @@ public class PaymentController {
         return ResponseEntity.ok(response);
     }
     @PostMapping("/save")
-    public ResponseEntity<MessengerVo> save(@RequestBody PaymentDto dto) throws SQLException {
+    public ResponseEntity<Messenger> save(@RequestBody PaymentDto dto) throws SQLException {
         log.info("입력받은 정보: {}",dto);
         return ResponseEntity.ok(paymentService.save(dto));
     }
@@ -51,7 +51,7 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.getPaymentByUserId(userId));
     }
     @PostMapping("/refund")
-    public ResponseEntity<MessengerVo> refundPayment(@RequestBody PaymentDto dto) throws SQLException, IamportResponseException, IOException {
+    public ResponseEntity<Messenger> refundPayment(@RequestBody PaymentDto dto) throws SQLException, IamportResponseException, IOException {
         log.info("입력받은 정보: {}",dto);
         return ResponseEntity.ok(paymentService.refundPayment(dto));
     }

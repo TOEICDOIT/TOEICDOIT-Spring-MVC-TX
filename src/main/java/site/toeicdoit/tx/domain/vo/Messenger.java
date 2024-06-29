@@ -1,4 +1,4 @@
-package site.toeicdoit.tx.domain.model;
+package site.toeicdoit.tx.domain.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class MessengerVo {
+public class Messenger {
     private String message;
     private int status;
     private String accessToken;

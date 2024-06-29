@@ -1,7 +1,7 @@
 package site.toeicdoit.tx.service;
 
 
-import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.vo.Messenger;
 import site.toeicdoit.tx.domain.dto.SubscribeDto;
 import site.toeicdoit.tx.domain.model.SubscribeModel;
 import site.toeicdoit.tx.domain.model.UserModel;
@@ -20,5 +20,5 @@ public interface SubscribeService {
     }
 
 
-    MessengerVo save(SubscribeDto dto);
+    Messenger save(SubscribeDto dto);
 }

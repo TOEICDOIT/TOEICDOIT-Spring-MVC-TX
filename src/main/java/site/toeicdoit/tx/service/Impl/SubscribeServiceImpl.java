@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.vo.Messenger;
+import site.toeicdoit.tx.domain.model.UserModel;
 import site.toeicdoit.tx.service.SubscribeService;
 import site.toeicdoit.tx.domain.dto.SubscribeDto;
 import site.toeicdoit.tx.domain.model.SubscribeModel;
@@ -22,7 +23,7 @@ public class SubscribeServiceImpl implements SubscribeService {
     private final SubscribeRepository subscribeRepository;
     @Transactional
     @Override
-    public MessengerVo save(SubscribeDto dto) {
+    public Messenger save(SubscribeDto dto) {
         if (dto.getSubscribeState() == null) {
             dto.setSubscribeState(false);
         }
@@ -35,7 +36,7 @@ public class SubscribeServiceImpl implements SubscribeService {
         } else {
             dto.setSubscribeState(false);
 
-            return MessengerVo.builder()
+            return Messenger.builder()
                     .message("FAILURE")
                     .build();
         }
@@ -43,14 +44,14 @@ public class SubscribeServiceImpl implements SubscribeService {
         Long id = subscribeRepository.findIdByendDate(dto.getEndDate());
 
 
-        return MessengerVo.builder()
+        return Messenger.builder()
                 .message("SUCCESS")
                 .subscribeId(id)
                 .build();
     }
 
     @Transactional
-    public MessengerVo check(Long userId) {
+    public Messenger check(UserModel userId) {
         List<SubscribeModel> subscriptions = subscribeRepository.findAllByUserId(userId);
         boolean hasTrueSubscribe = false;
 
@@ -68,11 +69,11 @@ public class SubscribeServiceImpl implements SubscribeService {
 
         // 하나라도 true인 경우 "SUCCESS" 메시지를 반환
         if (hasTrueSubscribe) {
-            return MessengerVo.builder()
+            return Messenger.builder()
                     .message("SUCCESS")
                     .build();
         } else {
-            return MessengerVo.builder()
+            return Messenger.builder()
                     .message("FAILURE")
                     .build();
         }

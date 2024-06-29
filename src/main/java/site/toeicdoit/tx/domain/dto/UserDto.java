@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
+import site.toeicdoit.tx.enums.Registration;
 
 @Component
 @AllArgsConstructor
@@ -20,4 +21,6 @@ public class UserDto {
     private String phone;
     private String createdAt;
     private String updatedAt;
+    private Integer toeicLevel;
+    private Registration registration;
 }

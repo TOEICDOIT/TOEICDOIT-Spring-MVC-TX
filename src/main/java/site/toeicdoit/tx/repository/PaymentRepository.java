@@ -11,7 +11,7 @@ import site.toeicdoit.tx.repository.dsl.PaymentDao;
 @Repository
 public interface PaymentRepository extends JpaRepository<PaymentModel, Long> , PaymentDao {
 
-    @Query("SELECT p.id FROM payments p WHERE p.paymentUid = :paymentUid")
+    @Query("SELECT p.id FROM PaymentModel p WHERE p.paymentUid = :paymentUid")
     Long findIdByPaymentUid(@Param("paymentUid") String paymentUid);
 
 

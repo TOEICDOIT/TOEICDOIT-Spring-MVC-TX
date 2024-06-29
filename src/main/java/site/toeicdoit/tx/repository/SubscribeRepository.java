@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import site.toeicdoit.tx.domain.model.SubscribeModel;
+import site.toeicdoit.tx.domain.model.UserModel;
 
 
 import java.time.LocalDateTime;
@@ -17,5 +18,5 @@ public interface SubscribeRepository extends JpaRepository<SubscribeModel, Long>
     Long findIdByendDate(@Param("endDate") LocalDateTime endDate);
 
 
-    List<SubscribeModel> findAllByUserId(Long userId);
+    List<SubscribeModel> findAllByUserId(UserModel userId);
 }

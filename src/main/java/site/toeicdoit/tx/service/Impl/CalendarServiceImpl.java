@@ -8,7 +8,7 @@ import site.toeicdoit.tx.domain.dto.CalendarDto;
 import site.toeicdoit.tx.domain.model.CalendarModel;
 import site.toeicdoit.tx.domain.model.UserModel;
 import site.toeicdoit.tx.repository.CalendarRepository;
-import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.vo.Messenger;
 import site.toeicdoit.tx.service.CalendarService;
 
 
@@ -33,7 +33,7 @@ public class CalendarServiceImpl implements CalendarService {
 
 
     @Override
-    public MessengerVo add(CalendarDto dto) {
+    public Messenger add(CalendarDto dto) {
         log.info("CalendarDto save con12: {}", dto);
 
 
@@ -57,20 +57,20 @@ public class CalendarServiceImpl implements CalendarService {
 
         if (isDuplicate) {
             log.info("Duplicate calendar event found. Not saving the event.");
-            return MessengerVo.builder()
+            return Messenger.builder()
                         .message("FAILURE: Already exists")
                         .build();
         }
 
         repo.save(dtoToEntity(dto));
-        return MessengerVo.builder()
+        return Messenger.builder()
                 .message("SUCCESS")
                 .build();
     }
 
     @Transactional
     @Override
-    public MessengerVo save(List<CalendarDto> calendarDto) {
+    public Messenger save(List<CalendarDto> calendarDto) {
         log.info("ArticleModel save Impl: {}", calendarDto);
 
         List<CalendarModel> savedModels = calendarDto.stream()
@@ -93,24 +93,24 @@ public class CalendarServiceImpl implements CalendarService {
 
         boolean allSuccess = savedModels.size() == calendarDto.size();
 
-        return MessengerVo.builder()
+        return Messenger.builder()
                 .message(allSuccess ? "SUCCESS" : "FAIL")
                 .build();
     }
 
 
     @Override
-    public MessengerVo save(CalendarDto calendarDto) {
+    public Messenger save(CalendarDto calendarDto) {
         return null;
     }
 
     @Override
-    public MessengerVo deleteById(Long id) {
+    public Messenger deleteById(Long id) {
         return null;
     }
 
     @Override
-    public MessengerVo modify(CalendarDto calendarDto) {
+    public Messenger modify(CalendarDto calendarDto) {
         return null;
     }
 
@@ -126,7 +126,7 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
-    public MessengerVo count() {
+    public Messenger count() {
         return null;
     }
 

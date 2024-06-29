@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.vo.Messenger;
 import site.toeicdoit.tx.domain.dto.PaymentDto;
 import site.toeicdoit.tx.domain.model.UserModel;
 import site.toeicdoit.tx.repository.PaymentRepository;
@@ -37,7 +37,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final IamportClient iamportClient;
 
     @Override
-    public MessengerVo save(PaymentDto dto) {
+    public Messenger save(PaymentDto dto) {
         log.info(dto.getPaymentUid());
         log.info(dto.getAmount().toString());
         log.info(dto.getProductId().toString());
@@ -46,7 +46,7 @@ public class PaymentServiceImpl implements PaymentService {
          Long paymentId = paymentRepository.findIdByPaymentUid(dto.getPaymentUid());
          log.info(paymentId.toString());
 
-        return MessengerVo.builder()
+        return Messenger.builder()
                 .message("SUCCESS")
                 .paymentId(paymentId)
                 .build();
@@ -60,7 +60,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public MessengerVo refundPayment(PaymentDto dto) throws IamportResponseException, IOException {
+    public Messenger refundPayment(PaymentDto dto) throws IamportResponseException, IOException {
         log.info(dto.getPaymentUid());
         IamportResponse<Payment> response = iamportClient.paymentByImpUid(dto.getPaymentUid());
         //cancelData 생성
@@ -72,7 +72,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         UserModel user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
         userRepository.save(user);
-        return MessengerVo.builder()
+        return Messenger.builder()
                 .message("SUCCESS")
                 .build();
     }

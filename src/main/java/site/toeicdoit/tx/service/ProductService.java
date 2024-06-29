@@ -1,7 +1,7 @@
 package site.toeicdoit.tx.service;
 
 
-import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.vo.Messenger;
 import site.toeicdoit.tx.domain.dto.ProductDto;
 import site.toeicdoit.tx.domain.model.ProductModel;
 
@@ -16,5 +16,5 @@ public interface ProductService {
                 .build();
     }
 
-    MessengerVo payment(ProductDto dto);
+    Messenger payment(ProductDto dto);
 }

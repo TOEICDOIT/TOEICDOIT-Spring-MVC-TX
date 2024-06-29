@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.vo.Messenger;
 import site.toeicdoit.tx.domain.dto.ProductDto;
 import site.toeicdoit.tx.service.Impl.ProductServiceImpl;
 
@@ -25,7 +25,7 @@ public class ProductController {
     private final ProductServiceImpl productService;
 
     @PostMapping("/payment")
-    public ResponseEntity<MessengerVo> save(@RequestBody ProductDto dto) throws SQLException {
+    public ResponseEntity<Messenger> save(@RequestBody ProductDto dto) throws SQLException {
         log.info("입력받은 정보: {}",dto);
         return ResponseEntity.ok(productService.payment(dto));
     }

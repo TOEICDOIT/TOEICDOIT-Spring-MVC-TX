@@ -8,13 +8,13 @@ import site.toeicdoit.tx.enums.PaymentStatus;
 import java.time.LocalDateTime;
 
 
-@Entity(name = "payments")
+@Entity
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @ToString(exclude = "id")
-public class PaymentModel extends BaseEntity {
+public class PaymentModel extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name ="id", nullable = false)

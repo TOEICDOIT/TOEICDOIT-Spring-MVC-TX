@@ -4,7 +4,7 @@ package site.toeicdoit.tx.service;
 
 import site.toeicdoit.tx.domain.dto.CalendarDto;
 import site.toeicdoit.tx.domain.model.CalendarModel;
-import site.toeicdoit.tx.domain.model.MessengerVo;
+import site.toeicdoit.tx.domain.vo.Messenger;
 import site.toeicdoit.tx.domain.model.UserModel;
 
 import java.util.List;
@@ -16,7 +16,6 @@ public interface CalendarService extends CommandService<CalendarDto>, QueryServi
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .allDay(entity.isAllDay())
-                .start(entity.getStart())
                 .userId(entity.getUserId().getId())
                 .startTime(entity.getStartTime())
                 .endTime(entity.getEndTime())
@@ -27,15 +26,14 @@ public interface CalendarService extends CommandService<CalendarDto>, QueryServi
         return CalendarModel.builder()
                 .title(dto.getTitle())
                 .allDay(dto.isAllDay())
-                .start(dto.getStart())
                 .userId(UserModel.builder().id(dto.getUserId()).build())
                 .startTime(dto.getStartTime())
                 .endTime(dto.getEndTime())
                 .build();
     }
-    MessengerVo save(List<CalendarDto> calendarDto);
+    Messenger save(List<CalendarDto> calendarDto);
 
     List<CalendarDto> getCalendarByUserId(Long userId);
 
-    MessengerVo add(CalendarDto dto);
+    Messenger add(CalendarDto dto);
 }

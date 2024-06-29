@@ -3,6 +3,7 @@ package site.toeicdoit.tx.service;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import site.toeicdoit.tx.domain.model.*;
 import site.toeicdoit.tx.domain.dto.PaymentDto;
+import site.toeicdoit.tx.domain.vo.Messenger;
 
 
 import java.io.IOException;
@@ -33,10 +34,10 @@ public interface PaymentService {
                 .build();
     }
 
-    MessengerVo save(PaymentDto dto);
+    Messenger save(PaymentDto dto);
 
 
     List<PaymentDto> getPaymentByUserId(Long userId);
 
-    MessengerVo refundPayment(PaymentDto dto) throws IamportResponseException, IOException;
+    Messenger refundPayment(PaymentDto dto) throws IamportResponseException, IOException;
 }

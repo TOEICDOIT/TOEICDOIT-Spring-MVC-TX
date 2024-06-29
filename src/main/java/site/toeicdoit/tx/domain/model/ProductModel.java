@@ -6,13 +6,13 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity(name = "products")
+@Entity
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @ToString(exclude = "id")
-public class ProductModel extends BaseEntity {
+public class ProductModel extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name ="id", nullable = false)

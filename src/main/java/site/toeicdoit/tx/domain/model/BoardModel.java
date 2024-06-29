@@ -3,27 +3,26 @@ package site.toeicdoit.tx.domain.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-
-import java.time.LocalDateTime;
-
+@Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 @Getter
 @ToString(exclude = {"id"})
-@Entity
-public class CalendarModel extends BaseModel {
+public class BoardModel extends BaseModel {
+
     @Id
-    @Column(name = "id")
+    @Column(name ="id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private boolean allDay;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private String content;
+    private String type;
 
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserModel userId;
+
+    @OneToOne(mappedBy = "boardId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private ReplyModel replyId;
 }
