@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface SubscribeRepository extends JpaRepository<SubscribeModel, Long> {
 
-    @Query("SELECT s.id FROM subscribes s WHERE s.endDate = :endDate")
+    @Query("SELECT s.id FROM SubscribeModel s WHERE s.endDate = :endDate")
     Long findIdByendDate(@Param("endDate") LocalDateTime endDate);
 
 

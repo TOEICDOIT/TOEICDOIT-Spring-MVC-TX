@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Getter
-@Entity(name = "users")
+@Entity
 @ToString(exclude = {"id"})
 public class UserModel extends BaseModel {
     @Id
