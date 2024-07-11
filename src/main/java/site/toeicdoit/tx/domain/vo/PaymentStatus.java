@@ -1,4 +1,4 @@
-package site.toeicdoit.tx.enums;
+package site.toeicdoit.tx.domain.vo;
 
 public enum PaymentStatus {
     OK,
