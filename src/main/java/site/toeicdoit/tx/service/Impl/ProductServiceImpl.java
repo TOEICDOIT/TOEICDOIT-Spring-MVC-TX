@@ -21,6 +21,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(dtoToEntity(dto));
         return Messenger.builder()
                 .message("상품결제 성공")
+                .state(Boolean.TRUE)
                 .build();
     }
 }

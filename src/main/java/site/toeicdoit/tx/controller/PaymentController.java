@@ -47,8 +47,8 @@ public class PaymentController {
         return ResponseEntity.ok(paymentService.save(dto));
     }
     @GetMapping("/find")
-    public ResponseEntity<List<PaymentDto>> getPaymentByUserId(@RequestParam ("id") Long userId) throws SQLException {
-        return ResponseEntity.ok(paymentService.getPaymentByUserId(userId));
+    public ResponseEntity<Messenger> findPaymentByUserId(@RequestParam ("id") Long userId) throws SQLException {
+        return ResponseEntity.ok(Messenger.builder().message("FIND PAYMENT DTO SUCCESSFULLY").state(Boolean.TRUE).data(paymentService.findPaymentByUserId(userId)).build() );
     }
     @PostMapping("/refund")
     public ResponseEntity<Messenger> refundPayment(@RequestBody PaymentDto dto) throws SQLException, IamportResponseException, IOException {

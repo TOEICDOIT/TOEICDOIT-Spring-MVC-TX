@@ -47,15 +47,15 @@ public class PaymentServiceImpl implements PaymentService {
          log.info(paymentId.toString());
 
         return Messenger.builder()
-                .message("SUCCESS")
-                .paymentId(paymentId)
+                .state(Boolean.TRUE)
+                .data(paymentId)
                 .build();
     }
 
     @Override
-    public List<PaymentDto> getPaymentByUserId(Long userId) {
+    public List<PaymentDto> findPaymentByUserId(Long userId) {
 
-        return paymentRepository.getPaymentByUserId(userId).stream().toList();
+        return paymentRepository.findPaymentByUserId(userId).stream().toList();
 
     }
 
@@ -73,7 +73,7 @@ public class PaymentServiceImpl implements PaymentService {
         UserModel user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
         userRepository.save(user);
         return Messenger.builder()
-                .message("SUCCESS")
+                .state(Boolean.TRUE)
                 .build();
     }
 

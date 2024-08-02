@@ -33,8 +33,8 @@ public class CalendarController {
 
 
     @GetMapping("/list")
-    public ResponseEntity<List<CalendarDto>> getCalendarByUserId(@RequestParam("id") Long userId) {
+    public ResponseEntity<Messenger> findCalendarByUserId(@RequestParam("id") Long userId) {
         log.info("ArticleModel findById con: {}", userId);
-        return ResponseEntity.ok(calendarService.getCalendarByUserId(userId));
+        return ResponseEntity.ok(Messenger.builder().message("Find CalendarDto Successfully").state(Boolean.TRUE).data(calendarService.findCalendarByUserId(userId)).build());
     }
 }
