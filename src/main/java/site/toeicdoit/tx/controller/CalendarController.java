@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @Log4j2
-@RequestMapping("/api/calendars")
+@RequestMapping("/api/calendar")
 public class CalendarController {
     private final CalendarServiceImpl calendarService;
 
@@ -32,9 +32,9 @@ public class CalendarController {
     }
 
 
-    @GetMapping("/list")
-    public ResponseEntity<Messenger> findCalendarByUserId(@RequestParam("id") Long userId) {
+    @GetMapping("/find-all-by-userId")
+    public ResponseEntity<Messenger> findAllByUserId(@RequestParam("id") Long userId) {
         log.info("ArticleModel findById con: {}", userId);
-        return ResponseEntity.ok(Messenger.builder().message("Find CalendarDto Successfully").state(Boolean.TRUE).data(calendarService.findCalendarByUserId(userId)).build());
+        return ResponseEntity.ok(Messenger.builder().message("Find CalendarDto Successfully").state(Boolean.TRUE).data(calendarService.findAllByuserId(userId)).build());
     }
 }

@@ -7,5 +7,5 @@ import site.toeicdoit.tx.domain.dto.PaymentDto;
 import java.util.List;
 
 public interface PaymentDao {
-    List<PaymentDto> findPaymentByUserId(Long userId);
+    List<PaymentDto> findAllByUserId(Long userId);
 }

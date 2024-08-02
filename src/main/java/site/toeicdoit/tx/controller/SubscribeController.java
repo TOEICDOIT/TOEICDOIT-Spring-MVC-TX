@@ -29,7 +29,7 @@ public class SubscribeController {
         return ResponseEntity.ok(subscribeService.save(dto));
     }
 
-    @GetMapping("/check")
+    @GetMapping("/exist-by-userId")
     public ResponseEntity<Messenger> existByUserId(@RequestParam Long userId)  {
         log.info("입력받은 정보: {}",userId);
         return ResponseEntity.ok(subscribeService.existByUserId(userId));

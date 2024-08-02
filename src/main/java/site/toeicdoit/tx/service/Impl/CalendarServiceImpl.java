@@ -137,7 +137,7 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
-    public List<CalendarDto> findCalendarByUserId(Long userId) {
+    public List<CalendarDto> findAllByuserId(Long userId) {
         return repo.findCalendarByUserId(userId).stream().map(i -> entityToDto(i)).peek(System.out::println).toList();
     }
 }

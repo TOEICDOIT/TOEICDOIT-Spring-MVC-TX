@@ -53,14 +53,14 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public List<PaymentDto> findPaymentByUserId(Long userId) {
+    public List<PaymentDto> findAllByUserId(Long userId) {
 
-        return paymentRepository.findPaymentByUserId(userId).stream().toList();
+        return paymentRepository.findAllByUserId(userId).stream().toList();
 
     }
 
     @Override
-    public Messenger refundPayment(PaymentDto dto) throws IamportResponseException, IOException {
+    public Messenger refund(PaymentDto dto) throws IamportResponseException, IOException {
         log.info(dto.getPaymentUid());
         IamportResponse<Payment> response = iamportClient.paymentByImpUid(dto.getPaymentUid());
         //cancelData 생성

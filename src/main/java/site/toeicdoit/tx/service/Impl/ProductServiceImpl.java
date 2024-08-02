@@ -17,7 +17,7 @@ import site.toeicdoit.tx.service.ProductService;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     @Override
-    public Messenger payment(ProductDto dto) {
+    public Messenger save(ProductDto dto) {
         productRepository.save(dtoToEntity(dto));
         return Messenger.builder()
                 .message("상품결제 성공")

@@ -33,7 +33,7 @@ public interface CalendarService extends CommandService<CalendarDto>, QueryServi
     }
     Messenger save(List<CalendarDto> calendarDto);
 
-    List<CalendarDto> findCalendarByUserId(Long userId);
+    List<CalendarDto> findAllByuserId(Long userId);
 
     Messenger add(CalendarDto dto);
 }
