@@ -21,9 +21,10 @@ public class CalendarModel extends BaseModel {
     private boolean isAllDay;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private LocalDateTime createdAt;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserModel userId;
 }

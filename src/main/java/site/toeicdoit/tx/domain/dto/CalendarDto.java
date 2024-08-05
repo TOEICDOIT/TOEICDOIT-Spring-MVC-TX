@@ -19,10 +19,11 @@ public class CalendarDto {
     private Long userId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private LocalDateTime createdAt;
 
 
     @QueryProjection
-    public CalendarDto(Long id, String title, boolean isAllDay, Long userId, LocalDateTime startTime, LocalDateTime endTime) {
+    public CalendarDto(Long id, String title, boolean isAllDay, Long userId, LocalDateTime startTime, LocalDateTime endTime, LocalDateTime createdAt) {
 
         this.id = id;
         this.title = title;
@@ -30,6 +31,8 @@ public class CalendarDto {
         this.userId = userId;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.createdAt = createdAt;
+
 
     }
 }
