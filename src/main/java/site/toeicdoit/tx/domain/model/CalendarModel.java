@@ -21,7 +21,6 @@ public class CalendarModel extends BaseModel {
     private boolean isAllDay;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private LocalDateTime createdAt;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
