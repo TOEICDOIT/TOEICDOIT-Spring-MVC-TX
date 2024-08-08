@@ -22,14 +22,14 @@ public class CalendarServiceImpl implements CalendarService {
 
     private final CalendarRepository repo;
 
-    private boolean isDuplicate(CalendarDto dto) {
-        return repo.existsByTitleAndIsAllDayAndStartTimeAndUserId(
-                dto.getTitle(),
-                dto.isAllDay(),
-                dto.getStartTime(),
-                UserModel.builder().id(dto.getUserId()).build()
-        );
-    }
+//    private boolean isDuplicate(CalendarDto dto) {
+//        return repo.existsByTitleAndIsAllDayAndStartTimeAndUserId(
+//                dto.getTitle(),
+//                dto.isAllDay(),
+//                dto.getStartTime(),
+//                UserModel.builder().id(dto.getUserId()).build()
+//        );
+//    }
 
 
     @Override
@@ -72,30 +72,51 @@ public class CalendarServiceImpl implements CalendarService {
     @Override
     public Messenger save(List<CalendarDto> calendarDto) {
 
+        log.info("ArticleModel save Impl: {}", calendarDto);
+        for (CalendarDto dto : calendarDto) {
+            log.info("CalendarDto save Impl: {}", dto);
+            if (dto.isAllDay()){
+                dto.incrementStartTimeAndEndTimeByOneDay();}
+        }
+
         List<CalendarModel> savedModels = calendarDto.stream()
-                .filter(dto -> !isDuplicate(dto))
-                .peek(System.out::println)
+//                .filter(dto -> !isDuplicate(dto))
                 .map(this::dtoToEntity)
-                .peek(System.out::println)
                 .map(repo::save)
                 .toList();
 
-        // Find all existing models for the user
-        Long userId = calendarDto.get(0).getUserId();
-        List<CalendarModel> existingModels = repo.findByUserId(UserModel.builder().id(userId).build());
-
-        // Find and delete models that are not in the new list
-        existingModels.stream()
-                .filter(existingModel -> calendarDto.stream()
-                        .noneMatch(dto -> dto.getTitle().equals(existingModel.getTitle())
-                                && dto.isAllDay() == existingModel.isAllDay()
-                                && dto.getStartTime().equals(existingModel.getStartTime())))
-                .forEach(repo::delete);
-
-        boolean allSuccess = savedModels.size() == calendarDto.size();
+//        // Find all existing models for the user
+//        Long userId = calendarDto.get(0).getUserId();
+//        List<CalendarModel> existingModels = repo.findByUserId(UserModel.builder().id(userId).build());
+//
+//        // Find and delete models that are not in the new list
+//        existingModels.stream()
+//                .filter(existingModel -> calendarDto.stream()
+//                        .noneMatch(dto -> dto.getTitle().equals(existingModel.getTitle())
+//                                && dto.isAllDay() == existingModel.isAllDay()
+//                                && dto.getStartTime().equals(existingModel.getStartTime())))
+//                .forEach(repo::delete);
+//
+//        boolean allSuccess = savedModels.size() == calendarDto.size();
 
         return Messenger.builder()
-                .state(allSuccess ? Boolean.TRUE : Boolean.FALSE)
+                .state(Boolean.TRUE)
+                .build();
+    }
+
+    @Override
+    public Messenger delete(Long id) {
+        log.info("delete id: {}" + id);
+        if (existsById(id)){;
+            repo.deleteById(id);}
+        else {
+            return Messenger.builder()
+                    .state(Boolean.FALSE)
+                    .build();
+        }
+
+        return Messenger.builder()
+                .state(Boolean.TRUE)
                 .build();
     }
 
@@ -133,7 +154,7 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public Boolean existsById(Long id) {
-        return null;
+        return repo.existsById(id);
     }
 
     @Override

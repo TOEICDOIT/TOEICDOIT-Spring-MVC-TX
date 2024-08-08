@@ -33,4 +33,14 @@ public class CalendarDto {
 
 
     }
+
+    public void incrementStartTimeAndEndTimeByOneDay() {
+        if (this.startTime  != null) {
+            this.startTime = this.startTime.plusDays(1);
+        }
+        if (this.endTime != null) {
+            this.endTime = this.endTime.plusDays(1);
+        }
+
+    }
 }
