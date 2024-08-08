@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import site.toeicdoit.tx.domain.dto.CalendarDto;
 import site.toeicdoit.tx.domain.model.CalendarModel;
 import site.toeicdoit.tx.domain.model.UserModel;
+import site.toeicdoit.tx.domain.vo.ExceptionStatus;
+import site.toeicdoit.tx.exception.TxException;
 import site.toeicdoit.tx.repository.CalendarRepository;
 import site.toeicdoit.tx.domain.vo.Messenger;
 import site.toeicdoit.tx.service.CalendarService;
@@ -22,30 +24,17 @@ public class CalendarServiceImpl implements CalendarService {
 
     private final CalendarRepository repo;
 
-//    private boolean isDuplicate(CalendarDto dto) {
-//        return repo.existsByTitleAndIsAllDayAndStartTimeAndUserId(
-//                dto.getTitle(),
-//                dto.isAllDay(),
-//                dto.getStartTime(),
-//                UserModel.builder().id(dto.getUserId()).build()
-//        );
-//    }
-
 
     @Override
     public Messenger add(CalendarDto dto) {
-        log.info("CalendarDto save con12: {}", dto);
-
-
         // DB에서 같은 제목, 사용자 ID를 가진 모든 일정 데이터를 가져옴
         List<CalendarModel> existingCalendars = repo.findByTitleAndUserId(dto.getTitle(), UserModel.builder().id(dto.getUserId()).build());
 
-        log.info("existingCalendars: {}", existingCalendars);
-        dto.getStartTime();
         // 모든 일정 데이터를 반복하면서 중복 여부를 확인
         // DTO의 startTime에서 월과 일을 추출
         int dtoMonth = dto.getStartTime().getMonthValue();
         int dtoDay = dto.getStartTime().getDayOfMonth();
+
 
         // 중복 체크를 위한 플래그
         boolean isDuplicate = existingCalendars.stream()
@@ -56,12 +45,9 @@ public class CalendarServiceImpl implements CalendarService {
                 });
 
         if (isDuplicate) {
-            log.info("Duplicate calendar event found. Not saving the event.");
-            return Messenger.builder()
-                        .message("FAILURE: Already exists")
-                        .state(Boolean.FALSE)
-                        .build();
+            throw new IllegalArgumentException("이미 같은 날짜에 일정이 있습니다.");
         }
+
 
         repo.save(dtoToEntity(dto));
         return Messenger.builder()
@@ -72,9 +58,16 @@ public class CalendarServiceImpl implements CalendarService {
     @Override
     public Messenger save(List<CalendarDto> calendarDto) {
 
-        log.info("ArticleModel save Impl: {}", calendarDto);
+
+
         for (CalendarDto dto : calendarDto) {
-            log.info("CalendarDto save Impl: {}", dto);
+            if (dto.getStartTime() == null || dto.getEndTime() == null || dto.getTitle().isEmpty()) {
+                throw new TxException(ExceptionStatus.INVALID_INPUT, "시작 시간과 종료 시간과 제목을 입력해주세요.");
+            }
+            if (dto.getStartTime().isAfter(dto.getEndTime())) {
+                throw new TxException(ExceptionStatus.INVALID_INPUT, "시작 시간이 종료 시간보다 늦을 수 없습니다.");
+            }
+
             if (dto.isAllDay()){
                 dto.incrementStartTimeAndEndTimeByOneDay();}
             else {
@@ -83,24 +76,14 @@ public class CalendarServiceImpl implements CalendarService {
         }
 
         List<CalendarModel> savedModels = calendarDto.stream()
-//                .filter(dto -> !isDuplicate(dto))
                 .map(this::dtoToEntity)
                 .map(repo::save)
                 .toList();
 
-//        // Find all existing models for the user
-//        Long userId = calendarDto.get(0).getUserId();
-//        List<CalendarModel> existingModels = repo.findByUserId(UserModel.builder().id(userId).build());
-//
-//        // Find and delete models that are not in the new list
-//        existingModels.stream()
-//                .filter(existingModel -> calendarDto.stream()
-//                        .noneMatch(dto -> dto.getTitle().equals(existingModel.getTitle())
-//                                && dto.isAllDay() == existingModel.isAllDay()
-//                                && dto.getStartTime().equals(existingModel.getStartTime())))
-//                .forEach(repo::delete);
-//
-//        boolean allSuccess = savedModels.size() == calendarDto.size();
+        boolean allSuccess = savedModels.size() == calendarDto.size();
+        if (!allSuccess) {
+            throw new TxException(ExceptionStatus.INVALID_INPUT, "일정 저장에 실패했습니다.");
+        }
 
         return Messenger.builder()
                 .state(Boolean.TRUE)
@@ -109,15 +92,11 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public Messenger delete(Long id) {
-        log.info("delete id: {}" + id);
         if (existsById(id)){;
             repo.deleteById(id);}
         else {
-            return Messenger.builder()
-                    .state(Boolean.FALSE)
-                    .build();
+            throw new TxException(ExceptionStatus.NOT_FOUND, "존재하지 않는 id 입니다.");
         }
-
         return Messenger.builder()
                 .state(Boolean.TRUE)
                 .build();
@@ -146,7 +125,6 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public Optional<CalendarDto> findById(Long id) {
-        log.info("CalendarDto findById Impl: {}", id);
         return repo.findById(id).map(i -> entityToDto(i));
     }
 
@@ -162,6 +140,9 @@ public class CalendarServiceImpl implements CalendarService {
 
     @Override
     public List<CalendarDto> findAllByUserId(Long userId) {
+        if (userId == null) {
+            throw new TxException(ExceptionStatus.INVALID_INPUT, "존재하지 않는 사용자 ID 입니다.");
+        }
         return repo.findCalendarByUserId(userId).stream().map(i -> entityToDto(i)).peek(System.out::println).toList();
     }
 }
