@@ -77,6 +77,9 @@ public class CalendarServiceImpl implements CalendarService {
             log.info("CalendarDto save Impl: {}", dto);
             if (dto.isAllDay()){
                 dto.incrementStartTimeAndEndTimeByOneDay();}
+            else {
+                dto.increaseStartTimeAndEndTimeByHour();
+            }
         }
 
         List<CalendarModel> savedModels = calendarDto.stream()

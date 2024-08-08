@@ -43,4 +43,13 @@ public class CalendarDto {
         }
 
     }
+
+    public void increaseStartTimeAndEndTimeByHour() {
+        if (this.startTime != null) {
+            this.startTime = this.startTime.plusHours(7);
+        }
+        if (this.endTime != null) {
+            this.endTime = this.endTime.plusHours(7);
+        }
+    }
 }
